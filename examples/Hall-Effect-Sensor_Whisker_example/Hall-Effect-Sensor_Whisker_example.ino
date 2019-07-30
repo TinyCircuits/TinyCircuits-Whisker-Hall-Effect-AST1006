@@ -39,7 +39,7 @@ void setup() {
   display.setBrightness(15);
   display.setFont(thinPixel7_10ptFontInfo);
 
-  selectPort(3); // This must match the port the Whisker is connected to 
+  selectPort(0); // This must match the port the Whisker is connected to 
                  // on the Adapter board
   hall.begin();
 //  hall.wake(); 
