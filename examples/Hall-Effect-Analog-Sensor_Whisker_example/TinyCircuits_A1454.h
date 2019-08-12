@@ -4,13 +4,7 @@
 //
 // Initiated: Wed. 8/ 8/2017 @  2:30PM 
 //   Updated: Mon. 8/28/2017 @  7:15PM 
-//
-// Revision 0 - Original Release
-//	RELEASED: 07/04/2018 ***Not Yet Released***
-//
 //*******************************************************************
-
-//
 
 #ifndef _TinyCircuits_A1454_H_
 #define _TinyCircuits_A1454_H_

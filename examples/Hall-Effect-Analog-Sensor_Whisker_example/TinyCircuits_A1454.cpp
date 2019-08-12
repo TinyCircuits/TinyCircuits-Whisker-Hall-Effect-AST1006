@@ -4,10 +4,6 @@
 //
 // Initiated: Wed. 8/ 8/2017 @  2:30PM 
 //   Updated: Mon. 8/28/2017 @  7:15PM 
-//
-// Revision 0 - Original Release
-//	RELEASED: 07/04/2018 ***Not Yet Released***
-//
 //*******************************************************************
 
 #include <avr/pgmspace.h>
@@ -114,20 +110,3 @@ void TinyCircuits_A1454::access(void) {
 	Wire.write(A1454_ACCESS_CODE); 
 	Wire.endTransmission(); 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

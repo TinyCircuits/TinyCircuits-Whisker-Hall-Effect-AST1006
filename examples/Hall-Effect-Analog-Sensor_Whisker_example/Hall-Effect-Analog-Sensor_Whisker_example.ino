@@ -1,5 +1,5 @@
 /*************************************************************************
- * A1454 WhiskerBoard Test Code - 
+ * A1454 Whisker Test Code - 
  * This program will show the basic method of interfacing with the sensor 
  * by printing out the Analog values (readings from 0 to 4096 (12-bit)) on
  * a TinyScreen+ and the Serial Monitor.
@@ -21,7 +21,7 @@ int background = TS_16b_Black;
 // A sensor object, the methods will be used to interface with the A1454
 TinyCircuits_A1454 hall = TinyCircuits_A1454();
 
-// The power pin for the 
+// The power pin for the Whisker Adapters
 const int powerPin = 4;
 
 void setup() {
@@ -54,7 +54,7 @@ void loop() {
   else if (mode == 1) SerialUSB.print("SLEEPING\t\t");
 
   SerialUSB.print("Mag: ");
-  SerialUSB.println(mag);
+  SerialUSB.print(mag);
   SerialUSB.print("mW");
   SerialUSB.print('\t');
 
@@ -68,7 +68,7 @@ void loop() {
   SerialUSB.print(temp);
   SerialUSB.println("°C");
 //  hall.sleep();
- // delay(100);
+  delay(250); // Makes TinyScreen+ updates prettier
 
   printToScreen(mag, temp, mode);
   //updateLeds(mag);
