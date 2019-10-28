@@ -1,5 +1,5 @@
 /*************************************************************************
- * A1454 Whisker Test Code - 
+ * A1454 Wireling Test Code - 
  * This program will show the basic method of interfacing with the sensor 
  * by printing out the Analog values (readings from 0 to 4096 (12-bit)) on
  * a TinyScreen+ and the Serial Monitor.
@@ -21,13 +21,21 @@ int background = TS_16b_Black;
 // A sensor object, the methods will be used to interface with the A1454
 TinyCircuits_A1454 hall = TinyCircuits_A1454();
 
-// The power pin for the Whisker Adapters
+// The power pin for the Wireling Adapters
 const int powerPin = 4;
+
+// Make Serial Monitor compatible for all TinyCircuits processors
+#if defined(ARDUINO_ARCH_AVR)
+  #define SerialMonitorInterface Serial
+#elif defined(ARDUINO_ARCH_SAMD)
+  #define SerialMonitorInterface SerialUSB
+#endif
+
 
 void setup() {
   // Begin communication 
-  SerialUSB.begin(9600);
-  SerialUSB.println("HALL LIBRARY TEST CODE");
+  SerialMonitorInterface.begin(9600);
+  SerialMonitorInterface.println("HALL LIBRARY TEST CODE");
   Wire.begin();
   
   pinMode(powerPin, OUTPUT);
@@ -39,7 +47,7 @@ void setup() {
   display.setBrightness(15);
   display.setFont(thinPixel7_10ptFontInfo);
 
-  selectPort(0); // This must match the port the Whisker is connected to 
+  selectPort(0); // This must match the port the Wireling is connected to 
                  // on the Adapter board
   hall.begin();
 //  hall.wake(); 
@@ -50,23 +58,23 @@ void loop() {
   long temp = hall.readTemp();
   long mode = hall.readMode();
 
-  if (mode == 0) SerialUSB.print("AWAKE\t\t");
-  else if (mode == 1) SerialUSB.print("SLEEPING\t\t");
+  if (mode == 0) SerialMonitorInterface.print("AWAKE\t\t");
+  else if (mode == 1) SerialMonitorInterface.print("SLEEPING\t\t");
 
-  SerialUSB.print("Mag: ");
-  SerialUSB.print(mag);
-  SerialUSB.print("mW");
-  SerialUSB.print('\t');
+  SerialMonitorInterface.print("Mag: ");
+  SerialMonitorInterface.print(mag);
+  SerialMonitorInterface.print("mW");
+  SerialMonitorInterface.print('\t');
 
-  SerialUSB.print("TempF: ");
+  SerialMonitorInterface.print("TempF: ");
   int tempF = ((temp * 1.8) + 32);
-  SerialUSB.print(tempF);
-  SerialUSB.print("°F");
-  SerialUSB.print('\t');
+  SerialMonitorInterface.print(tempF);
+  SerialMonitorInterface.print("°F");
+  SerialMonitorInterface.print('\t');
 
-  SerialUSB.print("TempC: ");
-  SerialUSB.print(temp);
-  SerialUSB.println("°C");
+  SerialMonitorInterface.print("TempC: ");
+  SerialMonitorInterface.print(temp);
+  SerialMonitorInterface.println("°C");
 //  hall.sleep();
   delay(250); // Makes TinyScreen+ updates prettier
 
@@ -74,7 +82,7 @@ void loop() {
   //updateLeds(mag);
 }
 
-// **This function is necessary for all Whisker boards attached through an Adapter board**
+// **This function is necessary for all Wireling boards attached through an Adapter board**
 // Selects the correct address of the port being used in the Adapter board
 void selectPort(int port) {
   Wire.beginTransmission(0x70);
