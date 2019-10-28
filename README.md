@@ -1,7 +1,7 @@
-# TinyCircuits-Whisker-Hall-Effect
+# TinyCircuits-Wireling-Hall-Effect
 # AST1006 Rev2
 
-The design files are located under design_files/ for the TinyCircuits AST1006 Rev 2 PCB. This is a whisker board which is either populated for digital or analog magnetic readings.
+The design files are located under design_files/ for the TinyCircuits AST1006 Rev 2 PCB. This is a Wireling board which is either populated for digital or analog magnetic readings.
 
 The digital variant features a humble TCS40DLR hall effect switch with High/Low output and a switching point near 3.5mT (35 Gauss) and 1.4mT (14 Gauss) of Hysteresis built in.
 
