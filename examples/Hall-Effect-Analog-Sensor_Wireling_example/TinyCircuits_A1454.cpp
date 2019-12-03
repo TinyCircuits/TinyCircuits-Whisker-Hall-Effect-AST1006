@@ -20,7 +20,7 @@ TinyCircuits_A1454::TinyCircuits_A1454() {
 //Begins I2C Communication
 void TinyCircuits_A1454::begin() {
 	Wire.begin();
-	access(); 
+//	access(); 
 	wake();  
 }
 
