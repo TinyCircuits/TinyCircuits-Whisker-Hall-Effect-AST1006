@@ -7,8 +7,8 @@
  * Hardware by: TinyCircuits
  * Written by: Laveréna Wienclaw for TinyCircuits
  * 
- * Initiated: 6/20/2018
- * Updated: 12/04/2019
+ * Initiated: June 2019
+ * Updated: Jan 2020
  ************************************************************************/
  
 #include <Wire.h>               // For I2C communication
@@ -45,12 +45,12 @@ void loop() {
   long temp = hall.readTemp();
   long mode = hall.readMode();
 
-  if (mode == 0) SerialMonitorInterface.print("AWAKE\t\t");
-  else if (mode == 1) SerialMonitorInterface.print("SLEEPING\t\t");
+//  if (mode == 0) SerialMonitorInterface.print("AWAKE\t\t");
+//  else if (mode == 1) SerialMonitorInterface.print("SLEEPING\t\t");
 
   SerialMonitorInterface.print("Mag: ");
-  SerialMonitorInterface.print(mag);
-  SerialMonitorInterface.print("mW");
+  SerialMonitorInterface.print((float)mag / 4.0/ 10.0); // convert to ENOB, and Gauss to millitesla
+  SerialMonitorInterface.print("mT"); // millitesla
   SerialMonitorInterface.print('\t');
 
   SerialMonitorInterface.print("TempF: ");
