@@ -1,9 +1,9 @@
 //*******************************************************************
 // TinyCircuits - A1454 Allegro Linear Hall-Effect Sensor Library 
-// Written by: Brandon Farmer for TinyCircuits 
+// Written by: Ben Rose for TinyCircuits 
 //
 // Initiated: Wed. 8/ 8/2017 @  2:30PM 
-//   Updated: Mon. 8/28/2017 @  7:15PM 
+//   Updated: Jan 2020
 //*******************************************************************
 
 #include <avr/pgmspace.h>
@@ -19,9 +19,7 @@ TinyCircuits_A1454::TinyCircuits_A1454() {
 
 //Begins I2C Communication
 void TinyCircuits_A1454::begin() {
-	Wire.begin();
-//	access(); 
-	wake();  
+
 }
 
 //Read the 12-bit signed Magnetic Field Value 						
@@ -38,10 +36,10 @@ int16_t TinyCircuits_A1454::readMag() {
 	x = Wire.read();
 	y = Wire.read(); 
 	
-	x <<= 8; 
-		
-	y |= x; 
-	return y; 												
+  x <<= 12; 
+  x |= (y << 4); 
+  x >>= 4;
+	return x; 												
 }
 
 //Read the 12-bit signed Junction Temperature Value 
@@ -57,36 +55,14 @@ int16_t TinyCircuits_A1454::readTemp() {
 	Wire.read(); 
 	x = Wire.read();
 	y = Wire.read(); 
-	
-	x <<= 8; 
-		
-	y |= x; 
-	y /= 8; 
-	y += 25; 
-	return y; 												
-}
 
-//Put the sensor into sleep mode 
-void TinyCircuits_A1454::sleep(void) {
-	Wire.beginTransmission(A1454_ADDRESS); 					
-	Wire.write(A1454_SLEEP); 	
-	Wire.write(0x00); 
-	Wire.write(0x00);
-	Wire.write(0x00); 
-	Wire.write(0x01); 
-	Wire.endTransmission(); 																				
-}
-
-//Wake the sensor from sleep mode, wait for it to stabilize 
-void TinyCircuits_A1454::wake(void) {
-	Wire.beginTransmission(A1454_ADDRESS); 					
-	Wire.write(A1454_SLEEP); 	
-	Wire.write(0x00); 
-	Wire.write(0x00); 
-	Wire.write(0x00); 
-	Wire.write(0x00);
-	Wire.endTransmission();
-	//delay(1); 
+  x <<= 12; 
+  x |= (y << 4); 
+  x >>= 4;
+  
+	x /= 8; // temperature offset
+	x += 25; 
+	return x; 												
 }
 
 //Check awake or sleep status 
@@ -101,12 +77,4 @@ uint8_t TinyCircuits_A1454::readMode(void) {
 	Wire.read();
 	
 	return Wire.read(); 											
-}
-
-//Write ACCESS codes to write to allow write to registers? 
-void TinyCircuits_A1454::access(void) {
-	Wire.beginTransmission(A1454_ADDRESS); 
-	Wire.write(A1454_ACCESS_ADDRESS); 
-	Wire.write(A1454_ACCESS_CODE); 
-	Wire.endTransmission(); 
 }

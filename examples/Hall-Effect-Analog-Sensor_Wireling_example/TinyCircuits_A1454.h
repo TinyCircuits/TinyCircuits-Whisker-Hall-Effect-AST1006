@@ -3,7 +3,7 @@
 // Written by: Brandon Farmer for TinyCircuits 
 //
 // Initiated: Wed. 8/ 8/2017 @  2:30PM 
-//   Updated: Mon. 8/28/2017 @  7:15PM 
+//   Updated: Jan 2020
 //*******************************************************************
 
 #ifndef _TinyCircuits_A1454_H_
@@ -30,12 +30,8 @@ class TinyCircuits_A1454 {
 		void begin(void); 					//Begin I2C Communications, access and wake sensor 
 		int16_t readMag(void);				//Read magnetometer value 
 		int16_t readTemp(void);				//Read temperature value 
-		void sleep(void);					//Put sensor into sleep mode 
-		void wake(void); 					//Wake sensor up from sleep mode 
 		uint8_t readMode(void); 			//Check for wake/sleep mode 
 	
-	private: 
-		void access(void); 					//Allow user to write to sensor registers 
 };
 
 #endif
