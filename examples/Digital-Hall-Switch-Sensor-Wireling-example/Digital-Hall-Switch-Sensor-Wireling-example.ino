@@ -25,6 +25,8 @@ bool magnetDetected = 0; // Make sense of output
 #endif
 
 void setup() {
+  SerialMonitorInterface.begin(9600);
+  
   // Enable & power Wireling
   Wireling.begin();
 
